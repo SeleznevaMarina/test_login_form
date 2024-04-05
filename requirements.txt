@@ -1,2 +1,2 @@
 pytest
-playwright==1.15.3
+playwright==1.42.0

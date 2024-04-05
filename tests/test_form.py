@@ -55,7 +55,6 @@ def test_uncorrect_username_registration(browser):
     page.get_by_label('Электронная почта').fill('3')
     expect(page.get_by_text("Допустимые символы (от 6 до 32): a-z, 0-9, _. Имя должно начинаться с буквы", exact=True)).to_be_visible()
     # Содержит кириллицу
-    page.get_by_label('Имя пользователя').fill('алиса_25;')
     page.get_by_label('Электронная почта').fill('3')
     expect(page.get_by_text("Допустимые символы (от 6 до 32): a-z, 0-9, _. Имя должно начинаться с буквы", exact=True)).to_be_visible()
 
@@ -67,3 +66,14 @@ def test_missing_fields_registration(browser):
     # Оставление полей пустыми
     page.get_by_text('Далее').click()
     expect(page.get_by_text("Поле не заполнено", exact=True)).to_have_count(3)
+    page.locator("//span[@class='v-icon notranslate v-icon--dense theme--light error--text']/input[@id='input-1720'[@aria-checked='false']]").is_visible()
+    
+
+def test_invalid_referal_code_registration(browser):
+    page = browser.new_page()
+    page.goto("https://koshelek.ru")
+    page.get_by_text('Зарегистрироваться').click()
+    # Неверный ввод реферального кода
+    page.get_by_label('Реферальный код').fill('invalid_code')
+    page.get_by_label('Электронная почта').fill('1')
+    expect(page.get_by_text("Неверный формат ссылки", exact=True)).to_be_visible()

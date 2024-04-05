@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -yq \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install playwright==1.15.3 pytest
+RUN pip install playwright==1.42.0 pytest
+RUN playwright install --with-deps
 
 WORKDIR /usr/src/app
 COPY . .
