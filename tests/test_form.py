@@ -27,14 +27,13 @@ def test_weak_password_registration(browser):
     page.get_by_label('Пароль').fill('123')
     page.get_by_label('Электронная почта').fill('123')
     expect(page.get_by_text("Пароль должен содержать минимум 8 символов", exact=True)).to_be_visible()
-
     page.get_by_label('Пароль').blur()
     page.get_by_label('Пароль').fill('12345678')
     page.get_by_label('Электронная почта').fill('123')
     expect(page.get_by_text("Пароль должен содержать от 8 до 64 символов, включая заглавные буквы и цифры", exact=True)).to_be_visible()
 
 
-def test_uncorrect_username_registration(browser):
+def test_incorrect_username_registration(browser):
     page = browser.new_page()
     page.goto("https://koshelek.ru")
     page.get_by_text('Зарегистрироваться').click()
